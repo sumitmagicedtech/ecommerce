@@ -1,17 +1,41 @@
-const User = require('../db/user');
+const { model } = require("mongoose");
+const User = require("../db/user");
+const bcrypt = require('bcrypt'); // For password hashing
+const jwt = require('jsonwebtoken'); // For generating JWT tokens
 
-async function registerUser(req, res) {
-    const { name, email, password } = req.body;
 
-    if (!name || !email || !password) {
-        return res.status(400).json({ error: 'Please provide all required fields' });
+async function registerUser(model) {
+    const hashPassword = await bcrypt.hash(req.body.password, 10);
+    let user = new User({
+        name: model.name,
+        email: model.email,
+        password: hashPassword,
+        // isAdmin: false,
+    });
+
+    await user.save();
+}
+
+async function loginUser(model) {
+    const user = await User.findOne({ email: model.email });
+    if (!user) {
+        return null;
     }
+    const isMatch = await bcrypt.compare(model.password, user.password);
+    if (isMatch) {
+        const token = jwt.sign(
+            { id: user._id, name: user.name, email: user.email },
+            "secret",
+            { expiresIn: "1h" }
+        );
 
-    try {
-        const newUser = new User({ name, email, password });
-        await newUser.save();
-        res.status(201).json({ message: 'User registered successfully' });
-    } catch (error) {
-        res.status(500).json({ error: 'Error registering user' });
+        return { token, user };
+    } else {
+        return null;
     }
 }
+
+module.exports = {
+    registerUser,
+    loginUser,
+};

@@ -4,13 +4,13 @@ import { CategoriesComponent } from './components/manage/categories/categories.c
 import { CategoryFormComponent } from './components/manage/category-form/category-form.component';
 import { BrandsComponent } from './components/manage/brands/brands.component';
 import { BrandsFormComponent } from './components/manage/brands-form/brands-form.component';
-import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
 import { ProductComponent } from './components/manage/product/product.component';
 import { ProductFormComponent } from './components/manage/product-form/product-form.component';
+import { SignupComponent } from './components/signup/signup.component';
 
 export const routes: Routes = [
-  { path: '', component: HomeComponent }, // Home route
+  { path: 'home', component: HomeComponent }, // Home route
   { path: 'admin/categories', component: CategoriesComponent }, // Categories management route
   { path: 'admin/categories/add', component: CategoryFormComponent }, // Category form route
   { path: 'admin/categories/:id', component: CategoryFormComponent }, // Category form route
@@ -24,9 +24,9 @@ export const routes: Routes = [
   { path: 'admin/products/:id', component: ProductFormComponent }, // Edit brand route
 
 
-  { path: 'register', component: RegisterComponent }, // Edit brand route
-  { path: 'login', component: LoginComponent }, // Edit brand route
+  { path: 'signup', component: SignupComponent },
+    { path: 'login', component: LoginComponent }, // Edit brand route
 
-
-  { path: '**', redirectTo: '', pathMatch: 'full' } // Wildcard route for 404
+    { path: '', redirectTo: '/login', pathMatch: 'full' },
+  // { path: '**', redirectTo: '', pathMatch: 'full' } // Wildcard route for 404
 ];

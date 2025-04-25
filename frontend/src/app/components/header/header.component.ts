@@ -18,7 +18,7 @@ import { Category } from '../../types/category';
 })
 export class HeaderComponent {
 
-
+  showDropdown = false;
   constructor( private categoryService : CategoryService) { }
   categories: Category[] = [];
 

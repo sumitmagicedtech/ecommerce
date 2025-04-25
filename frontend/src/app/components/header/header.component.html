@@ -32,7 +32,19 @@
     (keyup.enter)="onSearch()"
     placeholder="Search for products"
   />
-  <a routerLink="/profile" class="profile-link">Profile</a>
+
+  <!-- Profile with Dropdown -->
+  <div
+    class="profile-dropdown"
+    (mouseenter)="showDropdown = true"
+    (mouseleave)="showDropdown = false"
+  >
+    <a routerLink="/profile" class="profile-link">Profile</a>
+    <div class="dropdown-menu" *ngIf="showDropdown">
+      <a routerLink="/signup">signup</a>
+      <a routerLink="/logout">logout</a>
+    </div>
+  </div>
 </div>
 
 <!-- Category Menu -->

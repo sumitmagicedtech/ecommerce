@@ -1,44 +1,29 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router, RouterLink } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 @Component({
   selector: 'app-login',
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, FormsModule, RouterLink],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+  styleUrls: ['./login.component.css'],
 })
 export class LoginComponent {
+  email = '';
+  password = '';
+  error = '';
 
-  loginForm: FormGroup;
-  message: string = '';
-  success: boolean = false;
+  constructor(private authService: AuthService, private router: Router) {}
 
-  constructor(private fb: FormBuilder, private http: HttpClient, private router: Router) {
-    this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required],
+  login() {
+    this.authService.login(this.email, this.password).subscribe((success) => {
+      if (success) {
+        this.router.navigate(['/home']); // Redirect to homepage
+      } else {
+        this.error = 'Invalid credentials, please try again.';
+      }
     });
-  }
-
-  onSubmit() {
-    if (this.loginForm.valid) {
-      this.http.post<any>('http://localhost:3000/home', this.loginForm.value).subscribe({
-        next: (res) => {
-          this.message = res.message;
-          this.success = true;
-          // Store token (optional)
-          localStorage.setItem('token', res.token);
-          // Redirect to home page after successful login
-          this.router.navigate(['/home']);
-        },
-        error: (err) => {
-          this.message = err.error?.error || 'Login failed';
-          this.success = false;
-        }
-      });
-    }
   }
 }

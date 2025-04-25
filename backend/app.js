@@ -54,13 +54,13 @@ const swaggerDocs = swaggerJsDoc(swaggerOptions);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 // Routes
-app.get('/', (req, res) => {
-  res.send('Hello, Express!');
-});
 app.use('/category', categoryRoutes);
 app.use('/brand', brandRoutes);
 app.use('/product', productRoutes);
-app.use('/', authRoutes);
+app.use('/auth', authRoutes);
+
+
+
 
 // MongoDB connection
 const connectDB = async () => {

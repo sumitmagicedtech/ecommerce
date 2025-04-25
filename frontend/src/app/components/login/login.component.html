@@ -1,35 +1,14 @@
-<div class="container">
-  <h2>Login</h2>
-  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-    <div>
-      <label>Email:</label>
-      <input type="email" formControlName="email" />
-      <div
-        *ngIf="
-          loginForm.get('email')?.invalid && loginForm.get('email')?.touched
-        "
-      >
-        Valid email is required.
-      </div>
-    </div>
-
-    <div>
-      <label>Password:</label>
-      <input type="password" formControlName="password" />
-      <div
-        *ngIf="
-          loginForm.get('password')?.invalid &&
-          loginForm.get('password')?.touched
-        "
-      >
-        Password is required.
-      </div>
-    </div>
-
-    <button type="submit" [disabled]="loginForm.invalid">Login</button>
-
-    <div *ngIf="message" [style.color]="success ? 'green' : 'red'">
-      {{ message }}
-    </div>
-  </form>
-</div>
+<h2>Login</h2>
+<form (submit)="login(); $event.preventDefault()">
+  <input [(ngModel)]="email" name="email" placeholder="Email" required />
+  <input
+    [(ngModel)]="password"
+    name="password"
+    placeholder="Password"
+    type="password"
+    required
+  />
+  <button type="submit">Login</button>
+  <p *ngIf="error" style="color: red">{{ error }}</p>
+</form>
+<p>Don't have an account? <a routerLink="/signup">Sign up</a></p>
