@@ -1,0 +1,80 @@
+<div class="product-form-container">
+  <h1>{{ isEdit ? "Edit" : "Add" }} Product</h1>
+
+  <form (ngSubmit)="onSubmit()" #form="ngForm">
+    <mat-form-field appearance="fill">
+      <mat-label>Name</mat-label>
+      <input matInput [(ngModel)]="product.name" name="name" required />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Short Description</mat-label>
+      <input
+        matInput
+        [(ngModel)]="product.shortDescription"
+        name="shortDescription"
+      />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Description</mat-label>
+      <textarea
+        matInput
+        [(ngModel)]="product.description"
+        name="description"
+      ></textarea>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Price</mat-label>
+      <input
+        matInput
+        type="number"
+        [(ngModel)]="product.Price"
+        name="Price"
+        required
+      />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Discount (%)</mat-label>
+      <input
+        matInput
+        type="number"
+        [(ngModel)]="product.discount"
+        name="discount"
+      />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Category ID</mat-label>
+      <input
+        matInput
+        [(ngModel)]="product.categoryId"
+        name="categoryId"
+        required
+      />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Images (comma-separated URLs)</mat-label>
+      <input
+        matInput
+        [(ngModel)]="product.images"
+        name="images"
+        (ngModelChange)="product.images = $event.split(',')"
+      />
+    </mat-form-field>
+
+    <mat-checkbox [(ngModel)]="product.isFeatured" name="isFeatured"
+      >Featured</mat-checkbox
+    >
+    <mat-checkbox [(ngModel)]="product.isNew" name="isNew"
+      >New Arrival</mat-checkbox
+    >
+
+    <button mat-raised-button color="primary" type="submit">
+      {{ isEdit ? "Update" : "Add" }} Product
+    </button>
+  </form>
+</div>

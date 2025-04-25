@@ -1,0 +1,47 @@
+<!-- Top Line -->
+<!-- <div class="header-top">
+  <div class="logo">MyShop</div>
+  <input
+    type="text"
+    [(ngModel)]="searchQuery"
+    (keyup.enter)="onSearch()"
+    placeholder="Search for products"
+  />
+  <a routerLink="/profile" class="profile-link">Profile</a>
+</div> -->
+
+<!-- Category Menu -->
+<!-- <div class="header-bottom">
+  <nav>
+    <ul>
+      @for(category of categories; track $index){
+      <li>
+        <a>{{ category.name }}</a>
+      </li>
+      }
+    </ul>
+  </nav>
+</div> -->
+
+<!-- Top Line -->
+<div class="header-top">
+  <div class="logo">MyShop</div>
+  <input
+    type="text"
+    [(ngModel)]="searchQuery"
+    (keyup.enter)="onSearch()"
+    placeholder="Search for products"
+  />
+  <a routerLink="/profile" class="profile-link">Profile</a>
+</div>
+
+<!-- Category Menu -->
+<div class="header-bottom">
+  <nav>
+    <ul>
+      <li *ngFor="let category of categories">
+        <a>{{ category.name }}</a>
+      </li>
+    </ul>
+  </nav>
+</div>

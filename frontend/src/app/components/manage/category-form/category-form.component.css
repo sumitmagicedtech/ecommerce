@@ -1,0 +1,14 @@
+.form-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Align input to the left and button to the right */
+  gap: 1rem; /* Add space between the input field and the button */
+}
+
+/* .input-field {
+  flex: 1; 
+} */
+
+.add-button {
+  margin-left: auto; /* Ensure the button stays on the right */
+}
